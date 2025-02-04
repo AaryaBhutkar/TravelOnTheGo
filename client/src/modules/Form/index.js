@@ -6,7 +6,7 @@ import { useContext } from "react";
 import './sign_up.css'
 import 'react-toastify/dist/ReactToastify.css';
 import ToastContext from '../../components/ToastContext';
-import env from "react-dotenv";
+
 
 const Form = () => {
     const [data, setData] = useState({
@@ -19,7 +19,7 @@ const Form = () => {
     const handleSubmit = async(e) => {
         console.log('data :>> ', data);
         e.preventDefault();
-        const res = await fetch(`${process.env.BACKEND_URL}/api/register`, {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

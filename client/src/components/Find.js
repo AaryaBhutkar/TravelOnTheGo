@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import env from "react-dotenv";
+
 function Find({ searchQuery }) {
   const [results, setResults] = useState([]);
 
   const fetchURL =
-    `${process.env.BACKEND_URL}/`;
+    `${process.env.REACT_APP_BACKEND_URL}/`;
 
     const getAllDetails = () => {
       axios

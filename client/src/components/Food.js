@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import axios from 'axios'
 import "./Food.css";
 import SideBar from "./SideBar";
-import env from "react-dotenv";
+
 const Food = ({ filters }) => {
   const [resDetail, setResDetail] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
 
   const fetchURL =
-    `${process.env.BACKEND_URL}/`;
+    `${process.env.REACT_APP_BACKEND_URL}/`;
 
   useEffect(() => {
     getAllResDetails();

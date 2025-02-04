@@ -7,9 +7,10 @@ import { useContext } from "react";
 
 import 'react-toastify/dist/ReactToastify.css';
 import ToastContext from '../../components/ToastContext';
-import env from "react-dotenv";
+
 
 const Sign_in = () => {
+    console.log(process.env.REACT_APP_BACKEND_URL)
     const [data, setData] = useState({
         email: '',
         password: ''
@@ -21,7 +22,7 @@ const Sign_in = () => {
         //console.log('data :>> ', data);
         e.preventDefault()
         
-        const res = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
