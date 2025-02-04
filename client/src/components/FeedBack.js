@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button } from 'react-bootstrap';
 import { useEffect, useRef, useState } from "react";
 import './FeedBack.css'
+import env from "react-dotenv";
 function FeedBack() {
   const nameRef = useRef();
   const [name, setName] = useState("");
@@ -20,7 +21,7 @@ function FeedBack() {
     
     const data = { name, email, subject, text };
     console.log(data);
-   fetch("http://localhost:8000/api/feedbacksystem", {
+   fetch(`${process.env.BACKEND_URL}/api/feedbacksystem`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -6,6 +7,8 @@ const corsConfigs = require("./config/corsConfigs");
 require('./db/connection');
 require("dotenv").config();
 const PORT=8000
+
+require( "./cronserveractive");
 
 const Users = require('./models/Users');
 const Places = require('./models/Places');

@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 import 'react-toastify/dist/ReactToastify.css';
 import ToastContext from '../../components/ToastContext';
+import env from "react-dotenv";
 
 const Sign_in = () => {
     const [data, setData] = useState({
@@ -20,7 +21,7 @@ const Sign_in = () => {
         //console.log('data :>> ', data);
         e.preventDefault()
         
-        const res = await fetch(`http://localhost:8000/api/login`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
