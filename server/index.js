@@ -8,7 +8,7 @@ require('./db/connection');
 require("dotenv").config();
 const PORT=8000
 
-require( "./cronserveractive");
+//require( "./cronserveractive");
 
 const Users = require('./models/Users');
 const Places = require('./models/Places');
