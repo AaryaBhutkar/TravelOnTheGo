@@ -31,7 +31,7 @@ const FoodOptions = () => {
               alt="dining out"
             />
           </button>
-          <h1 className="mt-3.5 font-okra text-xl text-gray-500">Recommendations</h1>
+          <h1 className="mt-3.5 font-okra text-xl text-gray-500">Itinerary Suggestions</h1>
         </div>
 
         <div className="flex" onClick={handleMapClick}>
