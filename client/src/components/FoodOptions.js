@@ -12,6 +12,10 @@ const FoodOptions = () => {
   const handleMapClick = () => {
     navigate('/maps');
   };
+
+  const handleItineraryClick = () => {
+    navigate('/itinerary');
+  };
   return (
     <div className="flex mt-10 justify-around px-20 food-options-container" >
       
@@ -23,15 +27,15 @@ const FoodOptions = () => {
           <h1 className="mt-3.5 font-okra text-xl text-pink-600">Top Places</h1>
         </div>
 
-        <div className="flex">
-          <button className="bg-gray-50 hover:bg-pink-100 mx-5 py-3 px-3 rounded-full">
-            <img
-              className="w-10 h-10 bg-gray-100 hover:bg-pink-100 max-w-xs"
-              src="https://b.zmtcdn.com/data/o2_assets/78d25215ff4c1299578ed36eefd5f39d1616149985.png?output-format=webp"
-              alt="dining out"
-            />
-          </button>
-          <h1 className="mt-3.5 font-okra text-xl text-gray-500">Itinerary Suggestions</h1>
+        <div className="flex" onClick={handleItineraryClick}>
+        <button className="bg-gray-50 hover:bg-pink-100 mx-5 py-3 px-3 rounded-full">
+          <img
+            className="w-10 h-10 bg-gray-100 hover:bg-pink-100 max-w-xs"
+            src="https://b.zmtcdn.com/data/o2_assets/78d25215ff4c1299578ed36eefd5f39d1616149985.png?output-format=webp"
+            alt="dining out"
+          />
+        </button>
+        <h1 className="mt-3.5 font-okra text-xl text-gray-500">Itinerary Suggestions</h1>
         </div>
 
         <div className="flex" onClick={handleMapClick}>
