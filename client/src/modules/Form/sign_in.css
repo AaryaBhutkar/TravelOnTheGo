@@ -1,17 +1,30 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .signin {
-    background-image: url('./bg1.jpg');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh; /* Ensure the container takes at least the full viewport height */
-    width: 100%;
-    display: flex;
-    align-items: center; /* Vertically center content */
-    justify-content: center; /* Horizontally center content */
-  }
-  
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.signin {
+  background-image: url('./bg3.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add styles for the form container/box */
+.form-container {
+  background-color: rgba(255, 255, 255, 0.8); /* White background with 0.8 opacity */
+  padding: 2rem;
+  border-radius: 10px;
+  backdrop-filter: blur(5px); /* Optional: adds a blur effect */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* If you want to make the entire signin content transparent */
+.signin > * {
+  opacity: 1; /* Adjust this value between 0 and 1 to control transparency */
+}
