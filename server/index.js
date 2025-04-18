@@ -19,11 +19,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 // app.use(cors(corsConfigs));
 app.use("/api", require("./routes/feedbackRoutes"));
+app.use("/api", require("./routes/geminiRoutes"));
 //routes
 app.get('/', async(req, res) => {
     const places = await Places.find({});
     console.log("places>>>>>>>>" ,places);
-        
+
     res.send({places});
 })
 
@@ -68,7 +69,7 @@ app.post('/api/register',async (req,res,next) => {
             })
             return res.status(200).send('User registered successfully');
         }
-            
+
 
     }catch(e){
         console.log(e,'error');
@@ -116,11 +117,11 @@ app.post('/api/login', async (req,res,next)=>{
                     })
                 }
             }
-                
+
     }catch(e){
         console.log(e);
         return res.status(500).json({ error: e.message });
-    }        
+    }
 })
 
 //posting places
@@ -142,6 +143,6 @@ app.post('/api/places',async(req,res)=>{
 
 
 app.listen(PORT,async ()=>{
-    
+
     console.log(`Listening on port:${PORT}`);
 })
