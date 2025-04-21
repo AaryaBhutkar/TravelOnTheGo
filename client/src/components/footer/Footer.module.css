@@ -5,7 +5,10 @@
     padding: 2rem 4rem;
 }
 
-.innerFooter {}
+.innerFooter {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 .sec1 {
     width: 100%;
@@ -78,13 +81,25 @@
     font-size: 0.9rem;
 }
 
+.socialImgs {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
 .socialImgAnchore {
     text-decoration: none;
+    margin: 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+.socialImgAnchore:hover {
+    transform: scale(1.2);
 }
 
 .socialImg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     margin: 5px;
     cursor: pointer;
 }
@@ -116,7 +131,6 @@
 }
 
 @media all and (max-width: 800px) {
-
     .sec1,
     .sec2 {
         width: 100%;
@@ -126,25 +140,66 @@
 
     .box {
         width: 40%;
+        margin-bottom: 1.5rem;
+    }
+
+    .logoBox {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .filters {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1.5rem;
     }
 }
 
-@media all and (max-width: 550px) {
-
+@media all and (max-width: 600px) {
     .footer {
-        padding: 1rem 2rem;
+        padding: 1rem 1.5rem;
     }
 
+    .box {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .boxTtl {
+        margin: 1rem 0;
+    }
+
+    .socialImgs {
+        justify-content: center;
+    }
+
+    .app {
+        margin: 0.5rem auto;
+        display: block;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .footer {
+        padding: 1rem;
+    }
+
+    .filterBox {
+        width: 100%;
+        margin: 0.5rem 0;
+        justify-content: center;
+    }
+
+    .sec3 {
+        font-size: 0.8rem;
+    }
 }
 
 @media all and (max-width: 350px) {
-
-    .footer {
-        padding: 1rem 1rem;
-    }
-
-
     .filters {
-        margin: 2rem 0 0 0;
+        flex-direction: column;
+        margin: 1rem 0 0 0;
     }
 }

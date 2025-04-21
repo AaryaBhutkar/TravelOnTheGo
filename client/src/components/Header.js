@@ -22,9 +22,27 @@ function classNames(...classes) {
 const Header = (props) => {
     const {toast}=useContext(ToastContext);
     const navigate = useNavigate();
-  const [location, setLocation] = props.functions;
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user:detail')));
-  const { setQuery, searchQuery } = props;
+    const [location, setLocation] = props.functions;
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user:detail')));
+    const { setQuery, searchQuery } = props;
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+      setMobileMenuOpen(!mobileMenuOpen);
+    };
+
+    const handleLogout = () => {
+      setUser(null);
+      localStorage.clear();
+      toast.success("Logged out");
+      navigate("/users/sign_in",{replace:true});
+      setMobileMenuOpen(false);
+    };
+
+    const handleNavigation = (path) => {
+      navigate(path);
+      setMobileMenuOpen(false);
+    };
   return (
     <div className="header">
       <div onClick={()=>{navigate('/'); console.log('Clicked')}}>
@@ -33,11 +51,11 @@ const Header = (props) => {
          src={travelonthego}
         alt="TravelOnTheGo"
       />
-      </div>  
+      </div>
       {/* <div>}
       {/* <DropDown/> */}
       {/*</div> */}
-      
+
       {/* Dropdown start */}
       <Menu as="div" className="relative mx-8 -mt-5 inline-block text-left loc-dropdown">
         {({ open }) => (
@@ -210,19 +228,35 @@ const Header = (props) => {
           toast.success("Logged out");
           navigate("/users/sign_in",{replace:true});
          }}>
-             
-			  Logout</button>  
-        
+
+			  Logout</button>
+
       </div>
-         
+
       {/* <div>
       <UserInfo/>
       </div> */}
+      {/* Hamburger Menu Button */}
+      <div
+        className={`hamburger-menu ${mobileMenuOpen ? 'active' : ''}`}
+        onClick={toggleMobileMenu}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-item" onClick={() => handleNavigation('/')}>Home</div>
+        <div className="mobile-menu-item" onClick={() => handleNavigation('/maps')}>Maps</div>
+        <div className="mobile-menu-item" onClick={() => handleNavigation('/itinerary')}>Itinerary</div>
+        <div className="mobile-menu-item" onClick={() => handleNavigation('/feedback')}>Feedback</div>
+        <div className="mobile-menu-item" onClick={handleLogout}>Logout</div>
+      </div>
+
       <div className="lg:hidden navbar">
         <NavBar />
-      </div>
-      <div>
-      
       </div>
     </div>
   );

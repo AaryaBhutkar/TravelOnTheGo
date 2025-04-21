@@ -323,50 +323,49 @@ const ItinerarySuggestions = () => {
 
   // Activity Popup Component
   const ActivityPopup = ({ activity, onClose }) => {
-    // No state variables needed since we removed the image and URL sections
-
     // Return null if no activity is provided
     if (!activity) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="relative p-4 border-b border-gray-200">
-            <h2 className="text-2xl font-bold pr-10">{activity.activity}</h2>
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
+        <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[95vh] overflow-y-auto">
+          <div className="sticky top-0 z-10 bg-white p-3 sm:p-4 border-b border-gray-200">
+            <h2 className="text-xl sm:text-2xl font-bold pr-10 truncate">{activity.activity}</h2>
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 bg-gray-100 rounded-full p-2 hover:bg-gray-200 transition"
+              className="absolute top-3 right-3 bg-gray-100 rounded-full p-2 hover:bg-gray-200 transition"
+              aria-label="Close popup"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          <div className="p-6">
-            <div className="flex items-center mb-4">
-              <div className="bg-pink-100 text-pink-800 text-sm font-medium px-3 py-1 rounded-full mr-3">
+          <div className="p-4 sm:p-6">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <div className="bg-pink-100 text-pink-800 text-xs sm:text-sm font-medium px-3 py-1 rounded-full">
                 {activity.time}{activity.endTime ? ` - ${activity.endTime}` : ''}
               </div>
-              <div className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full mr-3">
+              <div className="bg-blue-100 text-blue-800 text-xs sm:text-sm font-medium px-3 py-1 rounded-full">
                 {activity.type}
               </div>
-              <div className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+              <div className="bg-green-100 text-green-800 text-xs sm:text-sm font-medium px-3 py-1 rounded-full">
                 {activity.distance ? `${activity.distance} km from center` : `Within ${formData.radius} km`}
               </div>
             </div>
 
             {activity.location && (
               <div className="mb-4">
-                <h3 className="text-lg font-semibold mb-1">Location</h3>
-                <p className="text-gray-700">{activity.location}</p>
+                <h3 className="text-base sm:text-lg font-semibold mb-1">Location</h3>
+                <p className="text-gray-700 text-sm sm:text-base">{activity.location}</p>
               </div>
             )}
 
             {activity.description && (
               <div className="mb-4">
-                <h3 className="text-lg font-semibold mb-1">Description</h3>
-                <p className="text-gray-700">{activity.description}</p>
+                <h3 className="text-base sm:text-lg font-semibold mb-1">Description</h3>
+                <p className="text-gray-700 text-sm sm:text-base">{activity.description}</p>
               </div>
             )}
 
@@ -376,9 +375,9 @@ const ItinerarySuggestions = () => {
                 href={`https://www.google.com/search?q=${encodeURIComponent(activity.activity + ' ' + (activity.location || formData.place))}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition"
+                className="inline-flex items-center px-3 sm:px-4 py-2 bg-blue-600 text-white text-sm sm:text-base font-medium rounded-md hover:bg-blue-700 transition"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
                 Search Google for more information
@@ -388,7 +387,7 @@ const ItinerarySuggestions = () => {
             <div className="mt-6 flex justify-end">
               <button
                 onClick={onClose}
-                className="px-4 py-2 bg-pink-600 text-white font-medium rounded-md hover:bg-pink-700 transition"
+                className="px-4 py-2 bg-pink-600 text-white text-sm sm:text-base font-medium rounded-md hover:bg-pink-700 transition"
               >
                 Close
               </button>
@@ -400,8 +399,8 @@ const ItinerarySuggestions = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <h1 className="text-3xl font-bold text-center mb-8 animate-fadeIn">Itinerary Suggestions</h1>
+    <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8 max-w-6xl">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8 animate-fadeIn">Itinerary Suggestions</h1>
 
       {/* Activity Popup */}
       {showPopup && selectedActivity && (
@@ -409,11 +408,11 @@ const ItinerarySuggestions = () => {
       )}
 
       {/* Input Form */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8 animate-slideIn">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6 sm:mb-8 animate-slideIn mx-3 sm:mx-0">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="space-y-2">
-              <label htmlFor="place" className="block text-gray-700 font-medium">
+              <label htmlFor="place" className="block text-gray-700 text-sm sm:text-base font-medium">
                 Destination
               </label>
               <div className="relative">
@@ -424,20 +423,20 @@ const ItinerarySuggestions = () => {
                   value={formData.place}
                   onChange={handleChange}
                   placeholder="Enter destination"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                   required
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label htmlFor="startTime" className="block text-gray-700 font-medium">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4">
+              <div className="space-y-1 sm:space-y-2">
+                <label htmlFor="startTime" className="block text-gray-700 text-sm sm:text-base font-medium">
                   Start Time
                 </label>
                 <input
@@ -446,13 +445,12 @@ const ItinerarySuggestions = () => {
                   name="startTime"
                   value={formData.startTime}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-2 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 />
-
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="endTime" className="block text-gray-700 font-medium">
+              <div className="space-y-1 sm:space-y-2">
+                <label htmlFor="endTime" className="block text-gray-700 text-sm sm:text-base font-medium">
                   End Time
                 </label>
                 <input
@@ -461,14 +459,13 @@ const ItinerarySuggestions = () => {
                   name="endTime"
                   value={formData.endTime}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-2 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 />
-
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="radius" className="block text-gray-700 font-medium">
+            <div className="space-y-1 sm:space-y-2">
+              <label htmlFor="radius" className="block text-gray-700 text-sm sm:text-base font-medium">
                 Radius (km)
               </label>
               <input
@@ -479,25 +476,25 @@ const ItinerarySuggestions = () => {
                 onChange={handleChange}
                 min="1"
                 max="50"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 required
               />
             </div>
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-4 sm:mt-6">
             <button
               type="submit"
-              className="px-6 py-3 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-150 transform hover:scale-105"
+              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-600 text-white text-sm sm:text-base font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-150"
               disabled={loading}
             >
               {loading ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Generating Itinerary...
+                  Generating...
                 </span>
               ) : "Generate Itinerary"}
             </button>
@@ -508,17 +505,17 @@ const ItinerarySuggestions = () => {
       {/* Results Section */}
       {showItinerary && (
         <div className="bg-white rounded-lg shadow-md p-6 mb-8 animate-slideUp">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Your AI-Generated Itinerary for {formData.place}</h2>
-            <div className="flex space-x-3">
-              <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 flex items-center transform hover:scale-105 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 px-3 sm:px-0">
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-0">Your Itinerary for {formData.place}</h2>
+            <div className="flex space-x-2 sm:space-x-3 w-full sm:w-auto justify-end">
+              <button className="px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 flex items-center transition text-sm sm:text-base">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                 </svg>
                 Print
               </button>
-              <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 flex items-center transform hover:scale-105 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <button className="px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 flex items-center transition text-sm sm:text-base">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>
                 Share
@@ -543,27 +540,30 @@ const ItinerarySuggestions = () => {
                     {day.activities.map((item, index) => (
                       <div
                         key={index}
-                        className="px-6 py-4 flex items-start hover:bg-gray-50 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg cursor-pointer"
+                        className="px-3 sm:px-6 py-4 flex flex-col sm:flex-row items-start hover:bg-gray-50 transition duration-300 ease-in-out transform hover:shadow-lg cursor-pointer"
                         onClick={() => handleActivityClick(item)}
                       >
-                        <div className="flex-shrink-0 mr-4">
-                          <div className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                        <div className="flex w-full sm:w-auto justify-between items-center mb-2 sm:mb-0 sm:mr-4">
+                          <div className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-1 rounded-full">
                             {item.time}{item.endTime ? ` - ${item.endTime}` : ''}
                           </div>
+                          <span className="inline-flex sm:hidden items-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-800">
+                            {item.distance ? `${item.distance} km` : `${Math.floor(Math.random() * formData.radius) + 1} km`}
+                          </span>
                         </div>
-                        <div className="flex-1">
-                          <h4 className="text-lg font-medium">{item.activity}</h4>
-                          <p className="text-gray-500">{item.type}</p>
+                        <div className="flex-1 w-full">
+                          <h4 className="text-base sm:text-lg font-medium">{item.activity}</h4>
+                          <p className="text-gray-500 text-sm">{item.type}</p>
                           {item.description && (
-                            <p className="text-gray-600 mt-1 text-sm">{item.description}</p>
+                            <p className="text-gray-600 mt-1 text-xs sm:text-sm">{item.description}</p>
                           )}
                           {item.location && (
-                            <p className="text-gray-500 text-sm mt-1">
+                            <p className="text-gray-500 text-xs sm:text-sm mt-1">
                               <span className="font-medium">Location:</span> {item.location}
                             </p>
                           )}
                         </div>
-                        <div className="flex-shrink-0 ml-4 flex flex-col items-end space-y-2">
+                        <div className="hidden sm:flex flex-shrink-0 ml-4 flex-col items-end space-y-2">
                           <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
                             {item.distance ? `${item.distance} km` : `${Math.floor(Math.random() * formData.radius) + 1} km`}
                           </span>
@@ -571,7 +571,15 @@ const ItinerarySuggestions = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Click for details
+                            Details
+                          </span>
+                        </div>
+                        <div className="w-full sm:hidden flex justify-end mt-2">
+                          <span className="text-xs text-gray-500 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Tap for details
                           </span>
                         </div>
                       </div>
@@ -591,19 +599,22 @@ const ItinerarySuggestions = () => {
                     {filterActivitiesByTimeRange(day.activities).map((item, index) => (
                       <div
                         key={index}
-                        className="px-6 py-4 flex items-start hover:bg-gray-50 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg cursor-pointer"
+                        className="px-3 sm:px-6 py-4 flex flex-col sm:flex-row items-start hover:bg-gray-50 transition duration-300 ease-in-out transform hover:shadow-lg cursor-pointer"
                         onClick={() => handleActivityClick(item)}
                       >
-                        <div className="flex-shrink-0 mr-4">
-                          <div className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                        <div className="flex w-full sm:w-auto justify-between items-center mb-2 sm:mb-0 sm:mr-4">
+                          <div className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-1 rounded-full">
                             {item.time}
                           </div>
+                          <span className="inline-flex sm:hidden items-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-800">
+                            {item.distance ? `${item.distance} km` : `${Math.floor(Math.random() * formData.radius) + 1} km`}
+                          </span>
                         </div>
-                        <div className="flex-1">
-                          <h4 className="text-lg font-medium">{item.activity}</h4>
-                          <p className="text-gray-500">{item.type}</p>
+                        <div className="flex-1 w-full">
+                          <h4 className="text-base sm:text-lg font-medium">{item.activity}</h4>
+                          <p className="text-gray-500 text-sm">{item.type}</p>
                         </div>
-                        <div className="flex-shrink-0 ml-4 flex flex-col items-end space-y-2">
+                        <div className="hidden sm:flex flex-shrink-0 ml-4 flex-col items-end space-y-2">
                           <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
                             {item.distance ? `${item.distance} km` : `${Math.floor(Math.random() * formData.radius) + 1} km`}
                           </span>
@@ -611,7 +622,15 @@ const ItinerarySuggestions = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Click for details
+                            Details
+                          </span>
+                        </div>
+                        <div className="w-full sm:hidden flex justify-end mt-2">
+                          <span className="text-xs text-gray-500 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Tap for details
                           </span>
                         </div>
                       </div>
@@ -624,29 +643,35 @@ const ItinerarySuggestions = () => {
 
           {/* Image Gallery Section */}
           <div className="mt-8">
-            <h3 className="text-2xl font-bold mb-6">Destination Images</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <h3 className="text-xl font-semibold mb-4 px-3 sm:px-0">Places to Visit</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 px-3 sm:px-0">
               {(generatedItinerary && generatedItinerary.itinerary ?
                 generatedItinerary.itinerary[0].activities.filter(item => item.image) :
                 filterActivitiesByTimeRange(sampleItinerary[0].activities)
               ).map((item, index) => (
                 <div
                   key={index}
-                  className="rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+                  className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
                   onClick={() => handleActivityClick(item)}
                 >
-                  <img
-                    src={item.image || 'https://via.placeholder.com/300x200?text=No+Image'}
-                    alt={item.activity}
-                    className="w-full h-48 object-cover"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-                    }}
-                  />
-                  <div className="p-4 bg-white">
-                    <h4 className="font-semibold text-lg">{item.activity}</h4>
+                  <div className="relative">
+                    <img
+                      src={item.image || 'https://via.placeholder.com/300x200?text=No+Image'}
+                      alt={item.activity}
+                      className="w-full h-40 sm:h-48 object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+                      }}
+                    />
+                    <div className="absolute top-2 right-2 bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
+                      {item.distance ? `${item.distance} km` : `${Math.floor(Math.random() * formData.radius) + 1} km`}
+                    </div>
+                  </div>
+                  <div className="p-3 sm:p-4 bg-white">
+                    <h4 className="font-semibold text-base sm:text-lg truncate">{item.activity}</h4>
                     <div className="flex justify-between items-center mt-1">
-                      <p className="text-gray-500 text-sm">{item.type}</p>
+                      <p className="text-gray-500 text-xs sm:text-sm">{item.type}</p>
                       <span className="text-xs text-gray-500 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -672,43 +697,43 @@ const ItinerarySuggestions = () => {
       )}
 
       {/* Travel Tips Section */}
-      <div className="bg-gray-50 rounded-lg p-6 animate-fadeIn">
-        <h3 className="text-xl font-semibold mb-4">Travel Tips</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-4 rounded-md shadow-sm transform transition hover:scale-105 hover:shadow-md">
-            <div className="flex items-center mb-3">
-              <div className="rounded-full bg-red-100 p-2 mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="bg-gray-50 rounded-lg p-4 sm:p-6 animate-fadeIn mx-3 sm:mx-0">
+        <h3 className="text-lg sm:text-xl font-semibold mb-4">Travel Tips</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+          <div className="bg-white p-3 sm:p-4 rounded-md shadow-sm transition hover:shadow-md">
+            <div className="flex items-center mb-2 sm:mb-3">
+              <div className="rounded-full bg-red-100 p-1.5 sm:p-2 mr-2 sm:mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h4 className="font-medium">Best Time to Visit</h4>
+              <h4 className="font-medium text-sm sm:text-base">Best Time to Visit</h4>
             </div>
-            <p className="text-gray-600 text-sm">Plan your visits to popular attractions early in the morning to avoid crowds.</p>
+            <p className="text-gray-600 text-xs sm:text-sm">Plan your visits to popular attractions early in the morning to avoid crowds.</p>
           </div>
 
-          <div className="bg-white p-4 rounded-md shadow-sm transform transition hover:scale-105 hover:shadow-md">
-            <div className="flex items-center mb-3">
-              <div className="rounded-full bg-red-100 p-2 mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-white p-3 sm:p-4 rounded-md shadow-sm transition hover:shadow-md">
+            <div className="flex items-center mb-2 sm:mb-3">
+              <div className="rounded-full bg-red-100 p-1.5 sm:p-2 mr-2 sm:mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
               </div>
-              <h4 className="font-medium">Local Transportation</h4>
+              <h4 className="font-medium text-sm sm:text-base">Local Transportation</h4>
             </div>
-            <p className="text-gray-600 text-sm">Consider getting a daily pass for public transport to save on travel costs.</p>
+            <p className="text-gray-600 text-xs sm:text-sm">Consider getting a daily pass for public transport to save on travel costs.</p>
           </div>
 
-          <div className="bg-white p-4 rounded-md shadow-sm transform transition hover:scale-105 hover:shadow-md">
-            <div className="flex items-center mb-3">
-              <div className="rounded-full bg-red-100 p-2 mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-white p-3 sm:p-4 rounded-md shadow-sm transition hover:shadow-md">
+            <div className="flex items-center mb-2 sm:mb-3">
+              <div className="rounded-full bg-red-100 p-1.5 sm:p-2 mr-2 sm:mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <h4 className="font-medium">Local Customs</h4>
+              <h4 className="font-medium text-sm sm:text-base">Local Customs</h4>
             </div>
-            <p className="text-gray-600 text-sm">Research local customs and etiquette before your trip for a smoother experience.</p>
+            <p className="text-gray-600 text-xs sm:text-sm">Research local customs and etiquette before your trip for a smoother experience.</p>
           </div>
         </div>
       </div>

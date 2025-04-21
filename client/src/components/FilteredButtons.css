@@ -1,9 +1,12 @@
 .filter-buttons-container {
     justify-content: center;
+    padding: 0.5rem;
 }
+
 .filter-buttons-container .flex button {
     min-width: max-content;
     margin: 0.5rem !important;
+    white-space: nowrap;
 }
 
 .filter-buttons-container .flex {
@@ -11,6 +14,15 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.filter-buttons-container .flex::-webkit-scrollbar {
+    display: none;
 }
 
 .rating-buttons-container {
@@ -22,15 +34,70 @@
     background: transparent;
 }
 
-@media screen and (max-width: 300px) {
+/* Mobile filter drawer */
+.filter-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.filter-drawer.open {
+    transform: translateX(0);
+}
+
+.filter-drawer-content {
+    width: 80%;
+    max-width: 350px;
+    height: 100%;
+    background-color: white;
+    overflow-y: auto;
+    padding: 1rem;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
     .filter-buttons-container {
-        margin: 1rem 0;
+        padding: 0.25rem;
+    }
+
+    .filter-buttons-container .flex {
+        justify-content: flex-start;
+        padding-left: 0.5rem;
+    }
+
+    .filter-buttons-container .flex button {
+        margin: 0.25rem !important;
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.875rem !important;
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
     .sort-ratings-side-menu {
         width: 100%;
         height: max-content;
+    }
+
+    .filter-drawer-content {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .filter-buttons-container {
+        margin: 0.5rem 0;
+    }
+
+    .filter-buttons-container .flex button {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 0.75rem !important;
     }
 }

@@ -1,22 +1,21 @@
 import React from 'react'
+import './ColoredLine.css'
 
 const ColoredLine = ({ color }) => (
     <div className="py-2 colored-line">
         <hr
+            className="accent-line"
             style={{
-                marginLeft: 170,
                 color: "red",
                 backgroundColor: "red",
-                width: 200,
-                height: 3
             }}
         />
 
         <hr
+            className="main-line"
             style={{
                 color: color,
                 backgroundColor: color,
-                height: 1
             }}
         />
     </div>
