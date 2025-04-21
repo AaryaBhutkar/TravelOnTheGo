@@ -173,10 +173,6 @@ We welcome contributions to TravelOnTheGo! Please follow these steps:
 
 Please ensure your code follows our coding standards and includes appropriate tests.
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgements
 
 - [Google Maps Platform](https://developers.google.com/maps)
