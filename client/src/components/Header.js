@@ -4,17 +4,13 @@ import Find from "./Find";
 import travelonthego from '../images/logo_nav_white.png';
 import { Link, useNavigate} from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import NavBar from "./NavBar";
 import React from "react";
-import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ToastContext from "./ToastContext";
 import { useEffect, useRef, useState } from 'react';
 import { useContext } from "react";
-import Button from '@mui/material/Button';
 // import SideBar from "./SideBar";
 // import DropDown from './ThedropDown'
-import UserInfo from "./UserInfo/UserInfo";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -22,76 +18,113 @@ function classNames(...classes) {
 const Header = (props) => {
     const {toast}=useContext(ToastContext);
     const navigate = useNavigate();
-    const [location, setLocation] = props.functions;
+    // We're keeping the location reference for future use
+    const [, ] = props.functions;
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user:detail')));
     const { setQuery, searchQuery } = props;
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const searchBarRef = useRef(null);
+    const mobileSearchRef = useRef(null);
 
-    const toggleMobileMenu = () => {
-      setMobileMenuOpen(!mobileMenuOpen);
-    };
+    // Handle clicks outside the search bars to close results
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        // Desktop search bar
+        if (searchBarRef.current && !searchBarRef.current.contains(event.target) && searchQuery) {
+          setQuery('');
+        }
+
+        // Mobile search bar
+        if (mobileSearchRef.current && !mobileSearchRef.current.contains(event.target) && searchQuery) {
+          setQuery('');
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [searchQuery, setQuery]);
 
     const handleLogout = () => {
       setUser(null);
       localStorage.clear();
       toast.success("Logged out");
       navigate("/users/sign_in",{replace:true});
-      setMobileMenuOpen(false);
-    };
-
-    const handleNavigation = (path) => {
-      navigate(path);
-      setMobileMenuOpen(false);
     };
   return (
     <div className="header">
-      <div onClick={()=>{navigate('/'); console.log('Clicked')}}>
+      <div onClick={()=>{navigate('/'); console.log('Clicked')}} className="logo-container order-0">
       <img
         className="header__image"
          src={travelonthego}
         alt="TravelOnTheGo"
       />
       </div>
-      {/* <div>}
-      {/* <DropDown/> */}
-      {/*</div> */}
 
-      {/* Dropdown start */}
-      <Menu as="div" className="relative mx-8 -mt-5 inline-block text-left loc-dropdown">
+      <div ref={searchBarRef} className="ml-5 -mt-3 md:w-96 lg:w-[500px] xl:w-[600px] md:ml-0 hidden md:inline-flex items-center shadow-md rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 search-bar order-2 relative">
+        <div className="relative flex-grow">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+          <input
+            className="w-full py-3 pl-10 pr-10 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent rounded-lg transition-all duration-200"
+            id="search"
+            type="text"
+            placeholder="Search for restaurant"
+            value={searchQuery}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setQuery('')}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200"
+              aria-label="Clear search"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {/* Search Results Dropdown */}
+        {searchQuery && (
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-20 overflow-hidden">
+            <div className="max-h-96 overflow-y-auto">
+              <Find searchQuery={searchQuery} />
+            </div>
+            {searchQuery.length > 0 && (
+              <div className="p-2 bg-gray-50 border-t border-gray-100 text-center">
+                <span className="text-xs text-gray-500">Press Enter to see all results</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Profile Dropdown */}
+      <Menu as="div" className="lg:inline-flex hidden profile-dropdown order-3 ml-auto">
         {({ open }) => (
           <>
             <div>
-              {/*This dropdown will be appear on device widths 640px or higher and stay hidden on other widths.*/}
-              <Menu.Button className="hidden sm:inline-flex  justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mt-1 h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="#F57082"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <input
-                  className="w-50  md:w-28 py-2 px-6 text-black-700 leading-tight focus:outline-none"
-                  id="search"
-                  type="text"
-                  placeholder={location}
-                />
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mt-1 h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                    clipRule="evenodd"
-                  />
+              <Menu.Button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </Menu.Button>
             </div>
@@ -108,70 +141,29 @@ const Header = (props) => {
             >
               <Menu.Items
                 static
-                className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none locations-wrapper"
+                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20"
               >
                 <div className="py-1">
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="text-sm font-medium text-gray-900">{user?.name || 'User'}</p>
+                    <p className="text-xs text-gray-500 truncate">{user?.email || 'user@example.com'}</p>
+                  </div>
+
+
+
                   <Menu.Item>
                     {({ active }) => (
                       <button
-                        type="button"
-                        onClick={() => setLocation("Bandra")}
+                        onClick={handleLogout}
                         className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-20 py-3 text-sm"
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'flex w-full px-4 py-2 text-sm'
                         )}
                       >
-                        Bandra
-                      </button>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        type="button"
-                        onClick={() => setLocation("Matunga")}
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-20 py-3 text-sm"
-                        )}
-                      >
-                        Matunga
-                      </button>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        type="button"
-                        onClick={() => setLocation("Dadar")}
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-20 py-3 text-sm"
-                        )}
-                      >
-                        Dadar
-                      </button>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        type="button"
-                        onClick={() => setLocation("Churchgate")}
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-20 py-3 text-sm"
-                        )}
-                      >
-                        Churchgate
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
                       </button>
                     )}
                   </Menu.Item>
@@ -181,82 +173,99 @@ const Header = (props) => {
           </>
         )}
       </Menu>
-      {/* Dropdown end */}
-
-      <div className="ml-5 -mt-3  md:w-80 md:ml-0  max-w-6xl hidden  lg:w-auto md:inline-flex items-center shadow-md rounded-md border border-gray-300 search-bar">
-        <input
-          className=" w-96 py-4 px-6 text-gray-700 leading-tight focus:outline-none"
-          id="search"
-          type="text"
-          placeholder="Search for restaurant or cuisine"
-          onInputCapture={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
-        <div className="p-3">
-          <button type="button" > {/*</button>onClick={() => props.setSearched(true)}>*/}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="#828282"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-        </div>
-      {/*This search bar will be appear on device widths 768px or higher and stay hidden on other widths.*/}
-      <div
-        className={
-          searchQuery ? "absolute  rounded-lg top-20 w-80 max-w-lg px-10 lg:w-max  lg:px-24 py-5 z-10 shadow-md overflow-y-auto max-h-96"
-              : "hidden"
-        }>
-          {searchQuery ? <Find searchQuery={searchQuery} /> : ""}
-      </div>
-    </div>
-
-      <div className="lg:inline-flex hidden">
-         <button class="nav-item h-10 px-5 mx-5 text-red-100 transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline  hover:bg-red-800" onClick={()=>{
-          setUser(null);
-          localStorage.clear();
-          toast.success("Logged out");
-          navigate("/users/sign_in",{replace:true});
-         }}>
-
-			  Logout</button>
-
-      </div>
 
       {/* <div>
       <UserInfo/>
       </div> */}
-      {/* Hamburger Menu Button */}
-      <div
-        className={`hamburger-menu ${mobileMenuOpen ? 'active' : ''}`}
-        onClick={toggleMobileMenu}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      {/* Mobile Profile Button */}
+      <Menu as="div" className="mobile-profile-dropdown">
+        {({ open }) => (
+          <>
+            <div>
+              <Menu.Button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </Menu.Button>
+            </div>
 
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
-        <div className="mobile-menu-item" onClick={() => handleNavigation('/')}>Home</div>
-        <div className="mobile-menu-item" onClick={() => handleNavigation('/maps')}>Maps</div>
-        <div className="mobile-menu-item" onClick={() => handleNavigation('/itinerary')}>Itinerary</div>
-        <div className="mobile-menu-item" onClick={() => handleNavigation('/feedback')}>Feedback</div>
-        <div className="mobile-menu-item" onClick={handleLogout}>Logout</div>
-      </div>
+            <Transition
+              show={open}
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items
+                static
+                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20"
+              >
+                <div className="py-1">
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="text-sm font-medium text-gray-900">{user?.name || 'User'}</p>
+                    <p className="text-xs text-gray-500 truncate">{user?.email || 'user@example.com'}</p>
+                  </div>
 
-      <div className="lg:hidden navbar">
-        <NavBar />
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={handleLogout}
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'flex w-full px-4 py-2 text-sm'
+                        )}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </>
+        )}
+      </Menu>
+
+      {/* Mobile Search Bar */}
+      <div ref={mobileSearchRef} className="mobile-search-container">
+        <div className="mobile-search-bar">
+          <div className="mobile-search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            placeholder="Search for restaurant"
+            value={searchQuery}
+            onChange={(e) => setQuery(e.target.value)}
+            className="mobile-search-input"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setQuery('')}
+              className="mobile-search-clear"
+              aria-label="Clear search"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {/* Mobile Search Results */}
+        {searchQuery && (
+          <div className="mobile-search-results">
+            <Find searchQuery={searchQuery} />
+          </div>
+        )}
       </div>
     </div>
   );

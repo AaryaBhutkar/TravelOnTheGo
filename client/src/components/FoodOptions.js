@@ -19,7 +19,7 @@ const FoodOptions = () => {
   return (
     <div className="food-options-container" >
 
-        <div className="flex selected-option-border">
+        <div className="nav-item selected-option-border">
           <button className="bg-pink-100 hover:bg-pink-200 mx-2 sm:mx-3 md:mx-5 py-3 px-3 rounded-full">
             <img className="w-8 h-8 sm:w-10 sm:h-10 bg-pink-100 hover:bg-pink-200"
             src="https://b.zmtcdn.com/data/o2_assets/c0bb85d3a6347b2ec070a8db694588261616149578.png?output-format=webp" alt="delivery" />
@@ -27,7 +27,7 @@ const FoodOptions = () => {
           <h1 className="mt-3.5 font-okra text-base sm:text-lg md:text-xl text-pink-600">Top Places</h1>
         </div>
 
-        <div className="flex" onClick={handleItineraryClick}>
+        <div className="nav-item" onClick={handleItineraryClick}>
         <button className="bg-gray-50 hover:bg-pink-100 mx-2 sm:mx-3 md:mx-5 py-3 px-3 rounded-full">
           <img
             className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 hover:bg-pink-100"
@@ -38,7 +38,7 @@ const FoodOptions = () => {
         <h1 className="mt-3.5 font-okra text-base sm:text-lg md:text-xl text-gray-500">Itinerary</h1>
         </div>
 
-        <div className="flex" onClick={handleMapClick}>
+        <div className="nav-item" onClick={handleMapClick}>
           <button className="bg-gray-50 hover:bg-pink-100 mx-2 sm:mx-3 md:mx-5 py-3 px-3 rounded-full">
             <img className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 hover:bg-pink-100"
             src={mappu} alt="maps" />
@@ -46,7 +46,7 @@ const FoodOptions = () => {
           <h1 className="mt-3.5 font-okra text-base sm:text-lg md:text-xl text-gray-500">Maps</h1>
         </div>
 
-        <div className="flex" onClick={handleFeedbackClick}>
+        <div className="nav-item" onClick={handleFeedbackClick}>
           <button className="bg-gray-50 hover:bg-pink-100 mx-2 sm:mx-3 md:mx-5 py-3 px-3 rounded-full">
             <img
               className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 hover:bg-pink-100"

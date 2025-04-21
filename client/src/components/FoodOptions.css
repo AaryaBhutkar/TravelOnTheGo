@@ -14,6 +14,11 @@
     transition: all 0.3s ease;
 }
 
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
 .food-options-container > div:hover {
     transform: translateY(-5px);
 }
@@ -32,6 +37,13 @@
     border-bottom: 3px solid red;
 }
 
+@media screen and (max-width: 768px) {
+    .selected-option-border::after {
+        bottom: -5px;
+        width: 60%;
+    }
+}
+
 @media screen and (max-width: 1250px) {
     .food-options-container {
         display: grid;
@@ -45,22 +57,68 @@
 @media screen and (max-width: 768px) {
     .food-options-container {
         padding: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .food-options-container > div {
-        min-width: 150px;
+        min-width: auto;
         margin: 0.25rem;
+        width: 80px;
+    }
+
+    .nav-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .food-options-container > div h1 {
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    .food-options-container > div button {
+        margin: 0;
     }
 }
 
 @media screen and (max-width: 600px) {
     .food-options-container {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.25rem;
     }
 
     .food-options-container > div {
-        width: 100%;
-        max-width: 100%;
+        width: 70px;
+        min-width: auto;
+        max-width: 70px;
+        margin: 0.15rem;
+    }
+
+    .nav-item {
+        flex-direction: column;
+    }
+
+    .food-options-container > div h1 {
+        font-size: 0.7rem;
+    }
+
+    .food-options-container > div button {
+        padding: 0.5rem;
+    }
+
+    .food-options-container > div button img {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
