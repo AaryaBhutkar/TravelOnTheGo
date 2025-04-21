@@ -4,10 +4,7 @@
 
 ## 📱 Live Demo
 
-[Visit TravelOnTheGo](https://travelonthego.netlify.app)
-
-Frontend: [Netlify Deployment](https://travelonthego.netlify.app)
-Backend: [Render API Service](https://travelonthego-api.onrender.com)
+[Visit TravelOnTheGo](https://travel-on-the-go.netlify.app/)
 
 ## 📖 Overview
 
