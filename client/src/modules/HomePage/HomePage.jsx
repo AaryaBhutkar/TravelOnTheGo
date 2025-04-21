@@ -28,7 +28,7 @@ const HomePage=()=>{
       <FoodOptions />
       <ColoredLine />
       <FilterButtons filters={filters} onChangeFilters={onChangeFilters} />
-      <h1 className="mx-44 pt-4 text-3xl font-normal food-head" >Best Places in {location} to Visit</h1>
+      <h1 className="mx-4 md:mx-12 lg:mx-24 xl:mx-44 pt-4 text-2xl md:text-3xl font-normal food-head text-center md:text-left" >Best Places in {location} to Visit</h1>
       <Food filters={filters} />
       <Footer/>
     </div>
