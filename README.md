@@ -89,8 +89,8 @@ TravelOnTheGo is a comprehensive travel companion application designed to help u
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/travelonthego.git
-cd travelonthego
+git clone https://github.com/AaryaBhutkar/TravelOnTheGo.git
+cd TravelOnTheGo
 ```
 
 ### Environment Variables
